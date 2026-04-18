@@ -3,6 +3,15 @@
     <channel>
         <title>Statement</title>
         <item>
+            <title>1.1.0</title>
+            <pubDate>Sun, 19 Apr 2026 00:44:29 +0200</pubDate>
+            <sparkle:version>1.1.0</sparkle:version>
+            <sparkle:shortVersionString>1.1.0</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>26.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <enclosure url="https://github.com/memfrag/Statement/releases/download/1.1.0/Statement-1.1.0.dmg" length="6458589" type="application/octet-stream" sparkle:edSignature="uZ4+BtvM2N+Iar/3T1dfzHN8EgUO8YsJVTBeSkGhNVDCNbEkkDGcIt4xhSECAy9UkQNJaNyzePN/eR5PSHPEBA=="/>
+        </item>
+        <item>
             <title>1.0.0</title>
             <pubDate>Sat, 18 Apr 2026 23:51:49 +0200</pubDate>
             <sparkle:version>1.0.0</sparkle:version>
