@@ -17,7 +17,6 @@ SPARKLE_TOOLS_DIR="$PROJECT_DIR/Sparkle-tools"
 ARCHIVE_PATH="$BUILD_DIR/$APP_NAME.xcarchive"
 EXPORT_DIR="$BUILD_DIR/export"
 EXPORT_OPTIONS="$SCRIPT_DIR/ExportOptions.plist"
-DMG_PATH="$BUILD_DIR/$APP_NAME.dmg"
 
 # ----- Helpers -----
 error() {
@@ -113,6 +112,8 @@ else
     VERSION="$CURRENT_VERSION"
 fi
 echo "Building version: $VERSION"
+
+DMG_PATH="$BUILD_DIR/$APP_NAME-$VERSION.dmg"
 
 # ----- Update versions -----
 info "Updating version in project files"
