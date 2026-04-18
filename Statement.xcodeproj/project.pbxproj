@@ -36,9 +36,22 @@
 		F0AA429B896FC549C33BA9E3 /* AppDesign */ = {isa = PBXFileReference; lastKnownFileType = folder; name = AppDesign; path = Packages/AppDesign; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		41431EC42F9440A40077C20F /* Exceptions for "Statement" folder in "Statement" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				macOS/Info.plist,
+			);
+			target = 88AAC35401341FD0A816B320 /* Statement */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		2E5B80E9C6E267B241183C01 /* Statement */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				41431EC42F9440A40077C20F /* Exceptions for "Statement" folder in "Statement" target */,
+			);
 			path = Statement;
 			sourceTree = "<group>";
 		};
