@@ -13,6 +13,7 @@
 		39AB446A6CD31450B3766B1B /* CGMath in Frameworks */ = {isa = PBXBuildFile; productRef = 7264CD4DF6775A07517F0E77 /* CGMath */; };
 		3D6E7D11E66CAE5EECF24349 /* MarkdownUI in Frameworks */ = {isa = PBXBuildFile; productRef = A1BC1F7E41FFCABDE3464DC9 /* MarkdownUI */; };
 		3DB5176273C728C24E9E0BBC /* SensibleStyling in Frameworks */ = {isa = PBXBuildFile; productRef = FE348FB0E4AF6716A3313B04 /* SensibleStyling */; };
+		41431AA42F9431FB0077C20F /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = 41431AA32F9431FB0077C20F /* Sparkle */; };
 		44924E5BF43137E74347820D /* CollectionKit in Frameworks */ = {isa = PBXBuildFile; productRef = 6C190093B917B0547428CC6D /* CollectionKit */; };
 		5367F917DB6F968E0251E74D /* BinaryDataKit in Frameworks */ = {isa = PBXBuildFile; productRef = FD9A7CB4114FF823A13CCE9B /* BinaryDataKit */; };
 		56437EA31D8E63F514330C56 /* AppRouting in Frameworks */ = {isa = PBXBuildFile; productRef = D486D554E5B2962344D983A2 /* AppRouting */; };
@@ -55,6 +56,7 @@
 				39AB446A6CD31450B3766B1B /* CGMath in Frameworks */,
 				44924E5BF43137E74347820D /* CollectionKit in Frameworks */,
 				93E300DE619DE70E6A4CFA53 /* Constructs in Frameworks */,
+				41431AA42F9431FB0077C20F /* Sparkle in Frameworks */,
 				67769AD79D09DD59C8D36B64 /* KeyValueStore in Frameworks */,
 				3D6E7D11E66CAE5EECF24349 /* MarkdownUI in Frameworks */,
 				E732A6698173385B44ADE4EA /* Markin in Frameworks */,
@@ -145,6 +147,7 @@
 				88DCF61DA80A9483333BA18C /* UserDefaultsUI */,
 				AC8C16CBE1EF2EF023A7A40D /* Zipcode */,
 				E27569356B6CEA36A1F335E2 /* CoreXLSX */,
+				41431AA32F9431FB0077C20F /* Sparkle */,
 			);
 			productName = Statement;
 			productReference = 254D9826B0AE6B6812A13294 /* Statement.app */;
@@ -191,6 +194,7 @@
 				F639C285286457B6F43F35DB /* XCRemoteSwiftPackageReference "UserDefaultsUI" */,
 				1305506AEDC575D1F50A7773 /* XCRemoteSwiftPackageReference "Zipcode" */,
 				156F87AC5799949E7B634CC7 /* XCLocalSwiftPackageReference "Packages/AppDesign" */,
+				41431AA22F9431FA0077C20F /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D181A5F7C4A8C34F8B641E46 /* Products */;
@@ -318,6 +322,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = DefaultAppIcon;
+				CODE_SIGN_ENTITLEMENTS = Statement/macOS/Statement.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -328,6 +333,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Statement/macOS/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Apparata AB. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -404,6 +411,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = DefaultAppIcon;
+				CODE_SIGN_ENTITLEMENTS = Statement/macOS/Statement.entitlements;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -414,6 +422,8 @@
 				ENABLE_PREVIEWS = YES;
 				ENABLE_USER_SELECTED_FILES = readwrite;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Statement/macOS/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 Apparata AB. All rights reserved.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -501,6 +511,14 @@
 			requirement = {
 				kind = exactVersion;
 				version = 2.2.2;
+			};
+		};
+		41431AA22F9431FA0077C20F /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = exactVersion;
+				version = 2.9.1;
 			};
 		};
 		5C8EF87B74DB8AEDB2F98E92 /* XCRemoteSwiftPackageReference "SettingsUI" */ = {
@@ -636,6 +654,11 @@
 		3A32E2456B451FDA2E43CC02 /* AppDesign */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppDesign;
+		};
+		41431AA32F9431FB0077C20F /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 41431AA22F9431FA0077C20F /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
 		};
 		69627AC5AEE35F0BB1CE457B /* MessagePackKit */ = {
 			isa = XCSwiftPackageProductDependency;

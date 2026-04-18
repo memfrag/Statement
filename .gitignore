@@ -19,6 +19,9 @@ DerivedData/
 # It's not entirely uncommon that "build/" is used for build results
 build/
 
+# Sparkle CLI tools (downloaded by release script)
+Sparkle-tools/
+
 # Just in case the compiler still creates these files
 *.hmap
 
