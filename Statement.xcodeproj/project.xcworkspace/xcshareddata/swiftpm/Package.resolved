@@ -1,0 +1,204 @@
+{
+  "originHash" : "8bbf837e2d0a5553e123385fea2d752da00098da4e427fc632536f8189b09b1e",
+  "pins" : [
+    {
+      "identity" : "approuting",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/AppRouting.git",
+      "state" : {
+        "revision" : "1cc49d3a966e9002a1ba3fae89de32aec6aa1fa1",
+        "version" : "0.9.2"
+      }
+    },
+    {
+      "identity" : "attributionsui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/AttributionsUI.git",
+      "state" : {
+        "revision" : "a8120596dd47532aa0db2971609c7cf1dbba67af",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "binarydatakit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/BinaryDataKit.git",
+      "state" : {
+        "revision" : "4b0c0ecdf7d0ba42be863c7ae0fdeca6408e3342",
+        "version" : "1.0.7"
+      }
+    },
+    {
+      "identity" : "cgmath",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/CGMath.git",
+      "state" : {
+        "revision" : "9320e34011c0f494ad25bc13f89090e18fec8d89",
+        "version" : "1.1.2"
+      }
+    },
+    {
+      "identity" : "collectionkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/CollectionKit.git",
+      "state" : {
+        "revision" : "bf431cf67cee8eb42599192c712780ed2d7477b1",
+        "version" : "1.1.1"
+      }
+    },
+    {
+      "identity" : "constructs",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/Constructs.git",
+      "state" : {
+        "revision" : "a21e0f6443372485e6eb8acc13549f61580d511e",
+        "version" : "2.1.2"
+      }
+    },
+    {
+      "identity" : "corexlsx",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/CoreOffice/CoreXLSX.git",
+      "state" : {
+        "revision" : "1391f3832ea2eeee5186ea8abb81ea49ed0609cc",
+        "version" : "0.14.2"
+      }
+    },
+    {
+      "identity" : "keyvaluestore",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/KeyValueStore.git",
+      "state" : {
+        "revision" : "03e5a554d70ea9e6f0d361b93625ea509615984a",
+        "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "markdownui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/MarkdownUI.git",
+      "state" : {
+        "revision" : "15f6da3007e992e930d73e277e4829f6785c1047",
+        "version" : "0.9.1"
+      }
+    },
+    {
+      "identity" : "markin",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/Markin.git",
+      "state" : {
+        "revision" : "8b3e92d720da421c214e2760ed0735d3502be2dc",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "mathkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/MathKit.git",
+      "state" : {
+        "revision" : "a49ed13e95953a2449dbc7878348a09d2b60ee77",
+        "version" : "2.2.2"
+      }
+    },
+    {
+      "identity" : "messagepackkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/MessagePackKit.git",
+      "state" : {
+        "revision" : "51805b8f2ad78496ff489743adf0c4fc6e37f1bd",
+        "version" : "1.4.1"
+      }
+    },
+    {
+      "identity" : "sensiblestyling",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/SensibleStyling.git",
+      "state" : {
+        "revision" : "e5967cadf0b92b4bada184cf41c6079cb0f9219f",
+        "version" : "0.2.1"
+      }
+    },
+    {
+      "identity" : "settingsui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/SettingsUI.git",
+      "state" : {
+        "revision" : "eac82380515065d306926ad28fd54d2acc759b0f",
+        "version" : "1.1.5"
+      }
+    },
+    {
+      "identity" : "swiftuitoolbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/SwiftUIToolbox.git",
+      "state" : {
+        "revision" : "eab78efb49c314cc975ccfca751ac0d26ed6a8a9",
+        "version" : "2.0.0"
+      }
+    },
+    {
+      "identity" : "systemkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/SystemKit.git",
+      "state" : {
+        "revision" : "62d0402c3ec3162ef226239a631f8f81f5582e2a",
+        "version" : "1.8.0"
+      }
+    },
+    {
+      "identity" : "texttoolbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/TextToolbox.git",
+      "state" : {
+        "revision" : "35a2ca5ded2321956649ef6170343089ed640e8b",
+        "version" : "1.4.0"
+      }
+    },
+    {
+      "identity" : "urltoolbox",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/URLToolbox.git",
+      "state" : {
+        "revision" : "9bc999d5a366795b085808944d77efd38644e089",
+        "version" : "1.3.1"
+      }
+    },
+    {
+      "identity" : "userdefaultsui",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/UserDefaultsUI.git",
+      "state" : {
+        "revision" : "b3770795bdd15f0220cd85f969cc6c20b222244a",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "xmlcoder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/maxdesiatov/XMLCoder.git",
+      "state" : {
+        "revision" : "ca932442d7481700f5434a7b138c47dd42d9902b",
+        "version" : "0.14.0"
+      }
+    },
+    {
+      "identity" : "zipcode",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apparata/Zipcode.git",
+      "state" : {
+        "revision" : "a5ce7e8b869d0753e28d4b3db8218020fec83e6f",
+        "version" : "1.0.1"
+      }
+    },
+    {
+      "identity" : "zipfoundation",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/weichsel/ZIPFoundation.git",
+      "state" : {
+        "revision" : "22787ffb59de99e5dc1fbfe80b19c97a904ad48d",
+        "version" : "0.9.20"
+      }
+    }
+  ],
+  "version" : 3
+}
