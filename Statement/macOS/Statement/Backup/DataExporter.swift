@@ -10,10 +10,17 @@ import SwiftData
 private struct BackupEnvelope: Codable {
     let version: Int
     let exportedAt: Date
+    /// Non-nil when the backup represents a single profile being moved
+    /// between machines (see `ProfileIO`). Legacy "Export All Data…"
+    /// backups leave this nil.
+    let profileName: String?
     let accounts: [BackupAccount]
     let categories: [BackupCategory]
     let subcategories: [BackupSubcategory]
     let rules: [BackupRule]
+    /// Optional for backwards compatibility with v1 backups that didn't
+    /// carry rename rules.
+    let renameRules: [BackupRenameRule]?
     let batches: [BackupBatch]
     let transactions: [BackupTransaction]
 }
@@ -50,6 +57,15 @@ private struct BackupRule: Codable {
     let signConstraint: Int?
 }
 
+private struct BackupRenameRule: Codable {
+    let name: String
+    let priority: Int
+    let matchKind: Int
+    let pattern: String
+    let replacement: String
+    let createdAt: Date
+}
+
 private struct BackupBatch: Codable {
     let importedAt: Date
     let sourceFilename: String
@@ -84,17 +100,19 @@ private struct BackupTransaction: Codable {
 @MainActor
 enum DataExporter {
 
-    static func export(to url: URL, context: ModelContext) throws {
+    static func export(to url: URL, context: ModelContext, profileName: String? = nil) throws {
         let accounts = try context.fetch(FetchDescriptor<Account>())
         let categories = try context.fetch(FetchDescriptor<Category>())
         let subs = try context.fetch(FetchDescriptor<Subcategory>())
         let rules = try context.fetch(FetchDescriptor<CategoryRule>())
+        let renameRules = try context.fetch(FetchDescriptor<RenameRule>())
         let batches = try context.fetch(FetchDescriptor<ImportBatch>())
         let transactions = try context.fetch(FetchDescriptor<Transaction>())
 
         let envelope = BackupEnvelope(
-            version: 1,
+            version: 2,
             exportedAt: Date(),
+            profileName: profileName,
             accounts: accounts.map {
                 BackupAccount(
                     accountNumber: $0.accountNumber,
@@ -123,6 +141,16 @@ enum DataExporter {
                     subcategoryName: r.subcategory?.name,
                     createdAt: r.createdAt,
                     signConstraint: r.signConstraintRaw
+                )
+            },
+            renameRules: renameRules.map { r in
+                BackupRenameRule(
+                    name: r.name,
+                    priority: r.priority,
+                    matchKind: r.matchKindRaw,
+                    pattern: r.pattern,
+                    replacement: r.replacement,
+                    createdAt: r.createdAt
                 )
             },
             batches: batches.map {
@@ -171,8 +199,10 @@ struct DataImportSummary {
     let accountsInserted: Int
     let categoriesInserted: Int
     let rulesInserted: Int
+    let renameRulesInserted: Int
     let transactionsInserted: Int
     let transactionsSkipped: Int
+    let profileName: String?
 }
 
 @MainActor
@@ -263,6 +293,30 @@ enum DataImporter {
             rulesInserted += 1
         }
 
+        // Upsert rename rules (match by name + pattern)
+        var existingRenameKeys: Set<String> = []
+        for r in try context.fetch(FetchDescriptor<RenameRule>()) {
+            existingRenameKeys.insert("\(r.name)::\(r.pattern)")
+        }
+        var renameRulesInserted = 0
+        for backup in envelope.renameRules ?? [] {
+            let key = "\(backup.name)::\(backup.pattern)"
+            if existingRenameKeys.contains(key) {
+                continue
+            }
+            let rule = RenameRule(
+                name: backup.name,
+                priority: backup.priority,
+                matchKind: RuleMatchKind(rawValue: backup.matchKind) ?? .contains,
+                pattern: backup.pattern,
+                replacement: backup.replacement,
+                createdAt: backup.createdAt
+            )
+            context.insert(rule)
+            existingRenameKeys.insert(key)
+            renameRulesInserted += 1
+        }
+
         // Upsert batches (match by sourceFilename + importedAt)
         var batchesByKey: [String: ImportBatch] = [:]
         for existing in try context.fetch(FetchDescriptor<ImportBatch>()) {
@@ -331,8 +385,21 @@ enum DataImporter {
             accountsInserted: accountsInserted,
             categoriesInserted: categoriesInserted,
             rulesInserted: rulesInserted,
+            renameRulesInserted: renameRulesInserted,
             transactionsInserted: transactionsInserted,
-            transactionsSkipped: transactionsSkipped
+            transactionsSkipped: transactionsSkipped,
+            profileName: envelope.profileName
         )
+    }
+
+    /// Peeks `profileName` from a backup file without performing a full
+    /// import. Used by `ProfileIO.importProfile(from:)` to decide what to
+    /// call the new profile before opening its container.
+    static func peekProfileName(from url: URL) throws -> String? {
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let envelope = try decoder.decode(BackupEnvelope.self, from: data)
+        return envelope.profileName
     }
 }

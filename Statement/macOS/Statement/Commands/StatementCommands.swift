@@ -121,6 +121,13 @@ struct BackupCommands: Commands {
                 MainActor.assumeIsolated { runRestore() }
             }
             Divider()
+            Button("Export Profile…") {
+                MainActor.assumeIsolated { runExportProfile() }
+            }
+            Button("Import Profile…") {
+                MainActor.assumeIsolated { runImportProfile() }
+            }
+            Divider()
             Button("Erase All Imported Data…") {
                 MainActor.assumeIsolated { runErase() }
             }
@@ -205,11 +212,76 @@ struct BackupCommands: Commands {
                     let summary = try DataImporter.importBackup(from: url, context: context)
                     let alert = NSAlert()
                     alert.messageText = "Backup imported"
-                    alert.informativeText = "\(summary.accountsInserted) accounts · \(summary.transactionsInserted) transactions · \(summary.transactionsSkipped) duplicates skipped."
+                    alert.informativeText = """
+                    \(summary.accountsInserted) accounts · \
+                    \(summary.transactionsInserted) transactions · \
+                    \(summary.transactionsSkipped) duplicates skipped.
+                    """
                     alert.runModal()
                 } catch {
                     let alert = NSAlert()
                     alert.messageText = "Import failed"
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+
+    @MainActor
+    private func runExportProfile() {
+        let activeName = ProfileStore.shared.activeProfile.displayName
+        let panel = NSSavePanel()
+        panel.allowedContentTypes = [.json]
+        panel.nameFieldStringValue = "\(activeName).statementprofile.json"
+        panel.prompt = "Export Profile"
+        panel.message = "Export the active profile '\(activeName)' including its accounts, transactions, categories, and rules."
+        panel.begin { response in
+            guard response == .OK, let url = panel.url else {
+                return
+            }
+            Task { @MainActor in
+                do {
+                    try ProfileIO.exportActiveProfile(to: url)
+                } catch {
+                    let alert = NSAlert()
+                    alert.messageText = "Profile export failed"
+                    alert.informativeText = error.localizedDescription
+                    alert.runModal()
+                }
+            }
+        }
+    }
+
+    @MainActor
+    private func runImportProfile() {
+        let panel = NSOpenPanel()
+        panel.canChooseFiles = true
+        panel.canChooseDirectories = false
+        panel.allowsMultipleSelection = false
+        panel.allowedContentTypes = [.json]
+        panel.prompt = "Import Profile"
+        panel.message = "Pick a profile export to add as a new profile."
+        panel.begin { response in
+            guard response == .OK, let url = panel.url else {
+                return
+            }
+            Task { @MainActor in
+                do {
+                    let result = try ProfileIO.importProfile(from: url)
+                    ProfileStore.shared.setActive(result.profile)
+                    let alert = NSAlert()
+                    alert.messageText = "Profile imported as \"\(result.profile.displayName)\""
+                    alert.informativeText = """
+                    \(result.summary.accountsInserted) accounts · \
+                    \(result.summary.transactionsInserted) transactions · \
+                    \(result.summary.rulesInserted) rules · \
+                    \(result.summary.renameRulesInserted) rename rules.
+                    """
+                    alert.runModal()
+                } catch {
+                    let alert = NSAlert()
+                    alert.messageText = "Profile import failed"
                     alert.informativeText = error.localizedDescription
                     alert.runModal()
                 }
