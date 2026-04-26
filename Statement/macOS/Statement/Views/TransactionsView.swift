@@ -37,6 +37,9 @@ struct TransactionsView: View {
     @State private var dateFilterEnabled: Bool = false
     @State private var dateFrom: Date = Calendar.current.date(byAdding: .month, value: -1, to: .now) ?? .now
     @State private var dateTo: Date = .now
+    @State private var amountFilterEnabled: Bool = false
+    @State private var amountMin: Decimal? = nil
+    @State private var amountMax: Decimal? = nil
 
     var body: some View {
         VStack(spacing: 0) {
@@ -95,6 +98,14 @@ struct TransactionsView: View {
                 let startOfDay = Calendar.current.startOfDay(for: dateFrom)
                 let endOfDay = Calendar.current.date(byAdding: .day, value: 1, to: Calendar.current.startOfDay(for: dateTo)) ?? dateTo
                 if tx.bookingDate < startOfDay || tx.bookingDate >= endOfDay {
+                    return false
+                }
+            }
+            if amountFilterEnabled {
+                if let min = amountMin, tx.amount < min {
+                    return false
+                }
+                if let max = amountMax, tx.amount > max {
                     return false
                 }
             }
@@ -230,6 +241,27 @@ struct TransactionsView: View {
                 DatePicker("To", selection: $dateTo, displayedComponents: .date)
                     .labelsHidden()
                     .controlSize(.small)
+            }
+
+            Toggle(isOn: $amountFilterEnabled) {
+                Label("Amount range", systemImage: "dollarsign.circle")
+                    .labelStyle(.titleAndIcon)
+            }
+            .toggleStyle(.button)
+            .controlSize(.small)
+
+            if amountFilterEnabled {
+                TextField("Min", value: $amountMin, format: .number)
+                    .textFieldStyle(.roundedBorder)
+                    .controlSize(.small)
+                    .frame(width: 80)
+                    .monospacedDigit()
+                Text("–").foregroundStyle(.secondary)
+                TextField("Max", value: $amountMax, format: .number)
+                    .textFieldStyle(.roundedBorder)
+                    .controlSize(.small)
+                    .frame(width: 80)
+                    .monospacedDigit()
             }
 
             Spacer()
